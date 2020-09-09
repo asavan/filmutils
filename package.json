@@ -1,0 +1,22 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "node-mediainfo": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "time": "node time.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asavan/filmutils.git"
+  },
+  "author": "asavan",
+  "bugs": {
+    "url": "https://github.com/asavan/filmutils/issues"
+  },
+  "homepage": "https://github.com/asavan/filmutils#readme"
+}
