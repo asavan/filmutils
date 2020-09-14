@@ -15,21 +15,23 @@ function addQuotes(name) {
 async function main() {
     const files = await fs.readdir(reverseFromDir);
     for (const file of files) {
-        const extension = file.split('.')[1];
-        let name = file.split('.')[0];
-        let output = reverseToDir + "/" + name + "_reversed." + extension;
+        const extension = file.split('.').pop();
+        const name = file.split('.')[0];
+        const output = reverseToDir + "/" + name + "_reversed." + extension;
         const alreadyContainsOutput = fsSync.existsSync(output);
 
         if (alreadyContainsOutput) {
             continue;
         }
-        output = addQuotes(output);
+        const outputWithQuotes = addQuotes(output);
         const inputfile = "\"" + reverseFromDir + "/" + file + "\"";
         console.log(inputfile);
         if (extension === 'mp4') {
-            await exec(`ffmpeg -i ${inputfile} -vf reverse -af areverse ${output}`)
+            await exec(`ffmpeg -i ${inputfile} -vf reverse -af areverse ${outputWithQuotes}`)
         } else if (extension === 'mp3') {
-            await exec(`ffmpeg -i ${inputfile} -af areverse ${output}`)
+            await exec(`ffmpeg -i ${inputfile} -af areverse ${outputWithQuotes}`)
+        } else {
+            console.log("Unsupported ext " + extension);
         }
     }
 }
