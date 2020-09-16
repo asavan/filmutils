@@ -124,8 +124,10 @@ async function main() {
         duration1 += await cache_duration(item, cache, argv.f);
     }
     console.log(butify(duration1));
-    if (isFilmsFolders && hasNewFiles) {
-        cache = filter(cache, files);
+    if (hasNewFiles) {
+        if (isFilmsFolders) {
+            cache = filter(cache, files);
+        }
         await fs.writeFile('./scripts/cache.json', JSON.stringify(cache, null, 4));
     }
 }
