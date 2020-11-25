@@ -1,3 +1,4 @@
+"use strict";
 const spawnAsync = require('@expo/spawn-async');
 const fs = require('fs');
 const readline = require('readline');

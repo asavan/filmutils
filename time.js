@@ -1,3 +1,4 @@
+"use strict";
 const mediainfo = require('node-mediainfo');
 const fs = require('fs').promises;
 const path = require('path');
