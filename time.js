@@ -8,7 +8,7 @@ function filterMovie(file) {
         return false;
     }
     const ext = file.split('.').pop().toLowerCase();
-    const goodExt = ["avi", "mkv", "mp4", "m4v", "flv", "wmv", "mov", "mpg"];
+    const goodExt = ["avi", "mkv", "mp4", "m4v", "flv", "wmv", "mov", "mpg", "m2ts"];
     return goodExt.includes(ext);
 }
 
