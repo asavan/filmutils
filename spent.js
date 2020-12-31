@@ -38,9 +38,9 @@ function main() {
     const y = notFood/0.3-all
     if (y > 0) {
         const dayAverage = 700;
-        const days = Math.floor(y/dayAverage);
+        const days = Math.floor(y*2/dayAverage)/2;
         console.log("Можно потратить на еду", Math.floor(y));        
-        console.log("Осталось примерно на", days, declDays(days));
+        console.log("Осталось примерно на", days, declDays(Math.floor(days)));
     }
 }
 
