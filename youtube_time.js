@@ -37,7 +37,7 @@ function hmsToSecondsOnly(str) {
 function secToString(SECONDS) {
     const date = new Date(null);
     date.setSeconds(SECONDS); // specify value for SECONDS here
-    return  date.toISOString().substr(11, 8);
+    return  date.toISOString();
 }
 
 async function main() {
