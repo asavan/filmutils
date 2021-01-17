@@ -9,15 +9,20 @@ function filterMovie(file) {
         return false;
     }
     const ext = file.split('.').pop().toLowerCase();
-    const goodExt = ["avi", "mkv", "mp4", "m4v", "flv", "wmv", "mov", "mpg", "m2ts"];
+    const goodExt = ["avi", "mkv", "mp4", "m4v", "flv", "wmv", "mov", "mpg", "m2ts", "vob"];
     return goodExt.includes(ext);
 }
 
 
 async function duration(filepath) {
-    const info = await mediainfo(filepath);
-    const d = info.media.track[0].Duration;
-    return parseFloat(d);
+    try {
+        const info = await mediainfo(filepath);
+        const d = info.media.track[0].Duration;
+        return parseFloat(d);
+    } catch (e) {
+        console.log("Error in parse", e);
+        return 0;
+    }
 }
 
 async function walk(dir, argv) {
@@ -108,7 +113,7 @@ async function main() {
 
     let hasNewFiles = !!argv.forserewrite;
     const cache_duration = async function (filepath, cache, isForseFast) {
-        if (cache[filepath]) {
+        if (cache[filepath] != null) {
             return cache[filepath];
         }
         if (isForseFast) {
