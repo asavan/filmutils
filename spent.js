@@ -13,13 +13,13 @@ function declDays(number) {
 function printResult(all, notFood) {
     // x + notFood = (all+x)*0.3
     // 0.7*x = all*0.3 - notFood
-    const x = (all * 0.3 - notFood) / 0.7;
+    const x = (all * 0.5 - notFood) / 0.5;
     const need = Math.ceil(x);
     if (need > 0) {
         console.log("Нужно потратить не на еду ", need);
     }
     // notFood = (all+y)*0.3
-    const y = notFood / 0.3 - all
+    const y = notFood / 0.5 - all
     if (y > 0) {
         const dayAverage = 700;
         const days = Math.floor(y * 2 / dayAverage) / 2;
