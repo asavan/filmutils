@@ -38,11 +38,21 @@ javascript:(async () => {
             }
             return keep;
         });
+        const food = allLines.filter(line => {
+            const amount = -getAmount(line.querySelector(".negative")?.innerText);
+            const cashBack = getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue);
+            return cashBack * 20 > amount;
+        });
         const sumNonFood = nonFood.reduce((a, line) => a - getAmount(line.querySelector(".negative")?.innerText), 0);
+        const sumFood = food.reduce((a, line) => a - getAmount(line.querySelector(".negative")?.innerText), 0);
         const debit = -getAmount(document.querySelector('#debit-turnover-row')?.querySelector(".negative")?.innerText);
         const reserved = -getAmount(document.querySelector('#reserved')?.querySelector(".negative")?.innerText);
+        if (sumFood + sumNonFood !== debit) {
+            console.log("Smth strange");
+        }
         const all = debit + reserved;
-        console.log("reserved", reserved, "spent", debit, "non-food", sumNonFood, "all", all);
+        console.log("reserved", reserved, "spent", debit, "non-food", sumNonFood, "food", sumFood, "all", all);
+        console.log(sumFood - sumNonFood, "diff");
         printResult(all, sumNonFood + nonFoodInReserved);
     }
 
