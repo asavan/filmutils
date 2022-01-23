@@ -26,6 +26,20 @@ javascript:(async () => {
     function getAmount(str) {
         return str ? parseFloat(str.replace(/\s/g, '')) : 0;
     }
+    
+    /* round */
+    function r(d) {
+        return d.toFixed(2);
+    }
+    
+    /* color */
+    function c(d) {
+        return "\x1b[34m" + r(d) + "\x1b[0m";
+    }
+    
+    function p(text, d) {
+        console.log(text + " " + c(d));
+    }
 
     function mainLogic(nonFoodInReserved = 0) {
         const allLines = Array.from(document.querySelector('table.statement').querySelector('tbody').querySelectorAll('tr'));
@@ -34,7 +48,7 @@ javascript:(async () => {
             const cashBack = getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue);
             const keep = cashBack * 20 < amount;
             if (keep) {
-                console.log(line.querySelector(".counterparty-name").innerText, amount, cashBack);
+                /*console.log(line.querySelector(".counterparty-name").innerText, amount, cashBack);*/
             }
             return keep;
         });
@@ -44,6 +58,8 @@ javascript:(async () => {
             return cashBack * 20 > amount;
         });
         const sumNonFood = nonFood.reduce((a, line) => a - getAmount(line.querySelector(".negative")?.innerText), 0);
+        const foodCashback = food.reduce((a, line) => a + getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue), 0);
+        const allCashback = allLines.reduce((a, line) => a + getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue), 0);
         const sumFood = food.reduce((a, line) => a - getAmount(line.querySelector(".negative")?.innerText), 0);
         const debit = -getAmount(document.querySelector('#debit-turnover-row')?.querySelector(".negative")?.innerText);
         const reserved = -getAmount(document.querySelector('#reserved')?.querySelector(".negative")?.innerText);
@@ -51,8 +67,14 @@ javascript:(async () => {
             console.log("Smth strange");
         }
         const all = debit + reserved;
-        console.log("reserved", reserved, "spent", debit, "non-food", sumNonFood, "food", sumFood, "all", all);
-        console.log(sumFood - sumNonFood, "diff");
+        p("foodCashback", foodCashback);
+        p("allCashback", allCashback);
+        p("reserved", reserved);
+        p("spent", debit);
+        p("non-food", sumNonFood);
+        p("food", sumFood);
+        p("all", all);
+        p("sumNonFood - sumFood", sumNonFood - sumFood);
         printResult(all, sumNonFood + nonFoodInReserved);
     }
 
