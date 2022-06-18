@@ -16,7 +16,7 @@ javascript:(async () => {
         }
         const y = notFood / 0.5 - all;
         if (y > 0) {
-            const dayAverage = 780;
+            const dayAverage = 800;
             const days = Math.floor(y * 2 / dayAverage) / 2;
             console.log("Можно потратить на еду", Math.floor(y));
             console.log("Осталось примерно на", days, declDays(Math.floor(days)));
@@ -63,8 +63,8 @@ javascript:(async () => {
         const sumFood = food.reduce((a, line) => a - getAmount(line.querySelector(".negative")?.innerText), 0);
         const debit = -getAmount(document.querySelector('#debit-turnover-row')?.querySelector(".negative")?.innerText);
         const reserved = -getAmount(document.querySelector('#reserved')?.querySelector(".negative")?.innerText);
-        if (sumFood + sumNonFood !== debit) {
-            console.log("Smth strange");
+        if (Math.abs(sumFood + sumNonFood - debit) > 0.001) {
+            console.log("Smth strange", sumFood + sumNonFood, debit);
         }
         const all = debit + reserved;
         p("foodCashback", foodCashback);
