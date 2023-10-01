@@ -1,7 +1,7 @@
 "use strict";
 
 function randomInteger(min, max) {
-    let rand = min + Math.random() * (max - min);
+    const rand = min + Math.random() * (max - min);
     return Math.floor(rand);
 }
 

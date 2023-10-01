@@ -18,7 +18,7 @@ async function main() {
     for (const file of files) {
         const extension = file.split(".").pop();
         const name = file.split(".")[0];
-        const output = path.resolve(reverseToDir,  name + "_reversed." + extension);
+        const output = path.resolve(reverseToDir, name + "_reversed." + extension);
         const alreadyContainsOutput = fsSync.existsSync(output);
 
         if (alreadyContainsOutput) {

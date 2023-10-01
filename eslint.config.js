@@ -6,10 +6,7 @@ export default [
     {
         rules: {
             semi: ["error", "always"],
-            "indent": [
-                "error",
-                4
-            ],
+            "indent": ["error", 4],
             "linebreak-style": [
                 "warn",
                 "windows"
@@ -17,7 +14,11 @@ export default [
             "quotes": [
                 "error",
                 "double"
-            ]
+            ],
+            "require-await": ["error"],
+            "comma-spacing": ["error"],
+            "prefer-const": ["error"],
+            "no-multi-spaces": ["error"]
         }
     },
     {

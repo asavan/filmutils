@@ -1,5 +1,6 @@
 "use strict";
-const minimist = require("minimist");
+
+import minimist from"minimist";
 
 function declOfNum(number, titles) {
     const cases = [2, 0, 1, 1, 1, 2];

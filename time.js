@@ -1,6 +1,6 @@
 "use strict";
 
-import fs  from 'node:fs/promises';
+import fs from "node:fs/promises";
 import mediainfo from "node-mediainfo";
 import minimist from"minimist";
 import path from "path";
@@ -147,7 +147,7 @@ async function all_ext() {
     for (const item of files) {
         mySet.add(item.split(".").pop().toLowerCase());
     }
-    for (let item of mySet) console.log(item);
+    for (const item of mySet) console.log(item);
 }
 
 // all_ext();
