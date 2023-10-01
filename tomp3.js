@@ -1,8 +1,9 @@
 "use strict";
-const spawnAsync = require("@expo/spawn-async");
-const fs = require("fs");
-const readline = require("readline");
-const ncp = require("copy-paste");
+
+import fs from "fs";
+import spawnAsync from "@expo/spawn-async";
+import readline from "readline";
+import ncp from "copy-paste";
 
 let counter = 0;
 const rl = readline.createInterface({
@@ -11,7 +12,7 @@ const rl = readline.createInterface({
     terminal: false
 });
 
-async function processOneLink(link) {
+function processOneLink(link) {
     try {
         const trimmedLink = link.trim();
         if (!trimmedLink) {
@@ -29,8 +30,7 @@ async function processOneLink(link) {
             newUrl = newUrlUrl.href;
         }
         console.log(newUrl);
-        const resultPromise = spawnAsync("youtube-dl", ["-x", "--audio-format", "mp3", newUrl], {stdio: "inherit"});
-        await resultPromise;
+        return spawnAsync("youtube-dl", ["-x", "--audio-format", "mp3", newUrl], {stdio: "inherit"});
     } catch (e) {
         console.log(e);
     }
