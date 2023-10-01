@@ -1,5 +1,5 @@
 "use strict";
-const minimist = require('minimist');
+const minimist = require("minimist");
 
 function declOfNum(number, titles) {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -19,7 +19,7 @@ function printResult(all, notFood) {
         console.log("Нужно потратить не на еду ", need);
     }
     // notFood = (all+y)*0.3
-    const y = notFood / 0.5 - all
+    const y = notFood / 0.5 - all;
     if (y > 0) {
         const dayAverage = 700;
         const days = Math.floor(y * 2 / dayAverage) / 2;
@@ -31,8 +31,8 @@ function printResult(all, notFood) {
 function main() {
     const argv = minimist(process.argv.slice(2), {
         alias: {
-            a: 'all',
-            n: 'nonfood'
+            a: "all",
+            n: "nonfood"
         }
     });
     const all = parseInt(argv.all || argv._[0], 10);
@@ -40,4 +40,4 @@ function main() {
     printResult(all, notFood);
 }
 
-main()
+main();

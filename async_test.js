@@ -26,4 +26,4 @@ async function main() {
     console.log(res);
 }
 
-main()
+main();

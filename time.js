@@ -1,14 +1,15 @@
 "use strict";
-const mediainfo = require('node-mediainfo');
-const fs = require('fs').promises;
-const path = require('path');
-const minimist = require('minimist');
+
+import fs  from 'node:fs/promises';
+import mediainfo from "node-mediainfo";
+import minimist from"minimist";
+import path from "path";
 
 function filterMovie(file) {
     if (!file) {
         return false;
     }
-    const ext = file.split('.').pop().toLowerCase();
+    const ext = file.split(".").pop().toLowerCase();
     const goodExt = ["avi", "mkv", "mp4", "m4v", "flv", "wmv", "mov", "mpg", "m2ts", "vob"];
     return goodExt.includes(ext);
 }
@@ -55,9 +56,9 @@ async function walk(dir, argv) {
     return files1.filter(x => x).reduce((all, folderContents) => all.concat(folderContents), []);
 }
 
-process.on('uncaughtException', function (err) {
+process.on("uncaughtException", function (err) {
     console.log("ERROR! " + err);
-})
+});
 
 function butify(input) {
     var n = Math.floor(input);
@@ -93,9 +94,9 @@ const filter = (db, keys) => keys.reduce((a, key) => (a[key] = db[key], a), {});
 async function main() {
     const argv = minimist(process.argv.slice(2), {
         alias: {
-            y: 'youtube',
-            f: 'forsefast',
-            w: 'forserewrite'
+            y: "youtube",
+            f: "forsefast",
+            w: "forserewrite"
         }
     });
     // console.log(argv);
@@ -104,9 +105,10 @@ async function main() {
     // console.log(isFilmsFolders);
     let cache = {};
     try {
-        const fileInput = await fs.readFile('./scripts/cache.json', 'utf8');
+        const fileInput = await fs.readFile("./scripts/cache.json", "utf8");
         cache = JSON.parse(fileInput);
     } catch (err) {
+        console.log(err);
     }
     console.log(files);
     console.log(files.length);
@@ -123,7 +125,7 @@ async function main() {
         hasNewFiles = true;
         cache[filepath] = d;
         return d;
-    }
+    };
 
     let duration1 = 0.0;
     for (const item of files) {
@@ -134,15 +136,16 @@ async function main() {
         if (isFilmsFolders) {
             cache = filter(cache, files);
         }
-        await fs.writeFile('./scripts/cache.json', JSON.stringify(cache, null, 4));
+        await fs.writeFile("./scripts/cache.json", JSON.stringify(cache, null, 4));
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function all_ext() {
     const files = await walk(process.argv[2] || "./");
     const mySet = new Set();
     for (const item of files) {
-        mySet.add(item.split('.').pop().toLowerCase());
+        mySet.add(item.split(".").pop().toLowerCase());
     }
     for (let item of mySet) console.log(item);
 }

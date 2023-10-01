@@ -1,6 +1,6 @@
-"use strict"
-const fs = require("fs");
-const path = require("path");
+"use strict";
+import fs from "fs";
+import path from "path";
 
 // node copy_subs.js folder jpg
 const relPath = process.argv[2] || ".";
@@ -9,7 +9,7 @@ const absolutePath = path.resolve(relPath);
 
 const manageFile = function (filepath, stats, level, file) {
     if (level > 0) {
-        const extension = file.split('.').pop();
+        const extension = file.split(".").pop();
         if (filterExt && extension.toUpperCase() !== filterExt.toUpperCase()) {
             return;
         }
@@ -19,7 +19,7 @@ const manageFile = function (filepath, stats, level, file) {
         console.log(newName);
         fs.renameSync(filepath, newName);
     }
-}
+};
 
 function walk(dir, callback, level) {
     fs.readdir(dir, function (err, files) {

@@ -1,12 +1,12 @@
 "use strict";
-const spawnAsync = require('@expo/spawn-async');
-const fs = require('fs');
-const readline = require('readline');
+const spawnAsync = require("@expo/spawn-async");
+const fs = require("fs");
+const readline = require("readline");
 const ncp = require("copy-paste");
 
 let counter = 0;
 const rl = readline.createInterface({
-    input: fs.createReadStream('videos.txt'),
+    input: fs.createReadStream("videos.txt"),
     output: process.stdout,
     terminal: false
 });
@@ -19,17 +19,17 @@ async function processOneLink(link) {
         }
 
         const myURL = new URL(trimmedLink);
-        const vParam = myURL.searchParams.get('v');
-        let newUrl = trimmedLink.split("?").shift()
+        const vParam = myURL.searchParams.get("v");
+        let newUrl = trimmedLink.split("?").shift();
         if (vParam) {
             const newSearchParams = new URLSearchParams();
-            newSearchParams.append('v', vParam);
+            newSearchParams.append("v", vParam);
             const newUrlUrl = new URL(newUrl);
             newUrlUrl.search = newSearchParams;
             newUrl = newUrlUrl.href;
         }
         console.log(newUrl);
-        const resultPromise = spawnAsync('youtube-dl', ['-x', '--audio-format', 'mp3', newUrl], {stdio: 'inherit'});
+        const resultPromise = spawnAsync("youtube-dl", ["-x", "--audio-format", "mp3", newUrl], {stdio: "inherit"});
         await resultPromise;
     } catch (e) {
         console.log(e);
@@ -50,4 +50,4 @@ async function main() {
     }
 }
 
-main()
+main();

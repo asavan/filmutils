@@ -1,14 +1,23 @@
 {
   "name": "scripts",
   "version": "1.0.0",
-  "description": "",
+  "type": "module",
+  "description": "usefull utilites",
   "dependencies": {
-    "minimist": "^1.2.5",
+    "globals": "^13.22.0",
+    "minimist": "^1.2.8",
     "node-mediainfo": "^1.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "npm-check-updates": "^16.14.4"
+  },
   "scripts": {
-    "time": "node time.js"
+    "time": "node time.js",
+    "style": "npx eslint .",
+    "style:fix": "npx eslint . --fix",
+    "updates": "npx ncu",
+    "updates:fix": "npx ncu -u && npm install"
   },
   "repository": {
     "type": "git",

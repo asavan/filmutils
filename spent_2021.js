@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-labels
 javascript:(async () => {
     function declOfNum(number, titles) {
         const cases = [2, 0, 1, 1, 1, 2];
@@ -24,7 +25,7 @@ javascript:(async () => {
     }
 
     function getAmount(str) {
-        return str ? parseFloat(str.replace(/\s/g, '')) : 0;
+        return str ? parseFloat(str.replace(/\s/g, "")) : 0;
     }
     
     /* round */
@@ -42,7 +43,7 @@ javascript:(async () => {
     }
 
     function mainLogic(nonFoodInReserved = 0) {
-        const allLines = Array.from(document.querySelector('table.statement').querySelector('tbody').querySelectorAll('tr'));
+        const allLines = Array.from(document.querySelector("table.statement").querySelector("tbody").querySelectorAll("tr"));
         const nonFood = allLines.filter(line => {
             const amount = -getAmount(line.querySelector(".negative")?.innerText);
             const cashBack = getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue);
@@ -61,8 +62,8 @@ javascript:(async () => {
         const foodCashback = food.reduce((a, line) => a + getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue), 0);
         const allCashback = allLines.reduce((a, line) => a + getAmount(line.querySelector(".cashback")?.childNodes[2].nodeValue), 0);
         const sumFood = food.reduce((a, line) => a - getAmount(line.querySelector(".negative")?.innerText), 0);
-        const debit = -getAmount(document.querySelector('#debit-turnover-row')?.querySelector(".negative")?.innerText);
-        const reserved = -getAmount(document.querySelector('#reserved')?.querySelector(".negative")?.innerText);
+        const debit = -getAmount(document.querySelector("#debit-turnover-row")?.querySelector(".negative")?.innerText);
+        const reserved = -getAmount(document.querySelector("#reserved")?.querySelector(".negative")?.innerText);
         if (Math.abs(sumFood + sumNonFood - debit) > 0.001) {
             console.log("Smth strange", sumFood + sumNonFood, debit);
         }
