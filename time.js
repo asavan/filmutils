@@ -2,7 +2,7 @@
 
 import fs from "node:fs/promises";
 import mediainfo from "node-mediainfo";
-import minimist from"minimist";
+import minimist from "minimist";
 import path from "path";
 
 function filterMovie(file) {

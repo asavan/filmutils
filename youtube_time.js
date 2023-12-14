@@ -24,13 +24,24 @@ function looperFs(name) {
 
 function looperDom(el) {
     function getArray() {
-        return el.querySelectorAll("span.ytd-thumbnail-overlay-time-status-renderer");
+        return el.querySelectorAll("ytd-rich-item-renderer");
     }
     function getElementString(line) {
-        return line.innerText;
+        const el1 = line.querySelector("ytd-thumbnail span.ytd-thumbnail-overlay-time-status-renderer");
+        if (!el1) return "";
+        return el1.innerText;
+        // return line.innerText;
+    }
+    function nextDay(line) {
+        const text = line.querySelectorAll(".inline-metadata-item.style-scope.ytd-video-meta-block")[1];
+        // console.log(text);
+        if (!text) {
+            return false;
+        }
+        return text.innerText.includes("day");
     }
     return {
-        getArray, getElementString
+        getArray, getElementString, nextDay
     };
 }
 
@@ -62,11 +73,16 @@ async function timing(looper) {
     let summ = 0;
     let counter = 0;
     for await (const line of looper.getArray()) {
+        if (looper.nextDay(line)) {
+            console.log(looper.getElementString(line));
+            break;
+        }
         const sec = hmsToSecondsOnly(looper.getElementString(line));
         if (sec) {
             summ += sec;
         }
         ++counter;
+        
     }
     console.log(toHHMMSS(summ), counter);
 }

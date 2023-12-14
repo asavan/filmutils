@@ -4,12 +4,12 @@
   "type": "module",
   "description": "usefull utilites",
   "dependencies": {
-    "globals": "^13.22.0",
     "minimist": "^1.2.8",
     "node-mediainfo": "^1.0.3"
   },
   "devDependencies": {
     "eslint": "^8.50.0",
+    "globals": "^13.22.0",
     "npm-check-updates": "^16.14.4"
   },
   "scripts": {
