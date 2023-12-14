@@ -74,7 +74,7 @@ async function timing(looper) {
     let counter = 0;
     for await (const line of looper.getArray()) {
         if (looper.nextDay(line)) {
-            console.log(looper.getElementString(line));
+            console.log(looper.getElementString(line), line.querySelector("#video-title").innerText);
             break;
         }
         const sec = hmsToSecondsOnly(looper.getElementString(line));
