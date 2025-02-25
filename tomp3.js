@@ -1,6 +1,5 @@
 import child_process from "node:child_process";
-import {createReadStream} from "node:fs";
-import * as readline from "node:readline/promises";
+import { open } from "node:fs/promises";
 import {promisify} from "node:util";
 
 import clipboard from "clipboardy";
@@ -25,19 +24,16 @@ function processOneLink(link) {
     return execFile("yt-dlp", ["-x", "--audio-format", "mp3", newUrl]);
 }
 
-async function main() {
-
+async function main(filename) {
     let counter = 0;
-
-    const rl = readline.createInterface({
-        input: createReadStream("videos.txt"),
-        output: process.stdout,
-        terminal: false
-    });
-
-    for await (const line of rl) {
-        await processOneLink(line);
-        ++counter;
+    const file = await open(filename);
+    try {
+        for await (const line of file.readLines()) {
+            await processOneLink(line);
+            ++counter;
+        }
+    } finally {
+        file.close();
     }
 
     if (counter === 0) {
@@ -46,4 +42,4 @@ async function main() {
     }
 }
 
-main();
+main("videos.txt");

@@ -1,5 +1,6 @@
 *.jar
 *.iml
+*.torrent
 .idea/*
 deploy
 target
@@ -10,4 +11,8 @@ target
 generated
 node_modules
 galery
+mediainfo
+old
+youtubetomp3
+you_time_api
 package-lock.json
