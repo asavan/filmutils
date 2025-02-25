@@ -1,9 +1,31 @@
-"use strict";
 
 import fs from "node:fs/promises";
-import mediainfo from "node-mediainfo";
+// import mediainfo from "node-mediainfo";
+import mediaInfoFactory from "mediainfo.js";
 import minimist from "minimist";
-import path from "path";
+import path from "node:path";
+
+const mediainfo = async (file) => {
+    const fileHandle = await fs.open(file, "r");
+    try {
+        const fileStat = await fileHandle.stat();
+        const fileSize = fileStat.size;
+        const readChunk = async (size, offset) => {
+            const buffer = new Uint8Array(size);
+            await fileHandle.read(buffer, 0, size, offset);
+            return buffer;
+        };
+        const mediainfoF = await mediaInfoFactory();
+        try {
+            const res = await mediainfoF.analyzeData(() => fileSize, readChunk);
+            return res;
+        } finally {
+            mediainfoF.close();
+        }
+    } finally {
+        await fileHandle.close();
+    }
+};
 
 function filterMovie(file) {
     if (!file) {
@@ -60,7 +82,7 @@ process.on("uncaughtException", function (err) {
     console.log("ERROR! " + err);
 });
 
-function butify(input) {
+function beautify(input) {
     var n = Math.floor(input);
     var day = Math.floor(n / (24 * 3600));
 
@@ -131,7 +153,7 @@ async function main() {
     for (const item of files) {
         duration1 += await cache_duration(item, cache, argv.f);
     }
-    console.log(butify(duration1));
+    console.log(beautify(duration1));
     if (hasNewFiles) {
         if (isFilmsFolders) {
             cache = filter(cache, files);

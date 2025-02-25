@@ -1,9 +1,10 @@
 {
   "name": "scripts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "usefull utilites",
   "dependencies": {
+    "mediainfo.js": "^0.3.4",
     "minimist": "^1.2.8",
     "node-mediainfo": "^1.0.3"
   },

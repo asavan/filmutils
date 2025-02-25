@@ -9,4 +9,5 @@ target
 .idea
 generated
 node_modules
+galery
 package-lock.json
