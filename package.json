@@ -8,9 +8,9 @@
     "node-mediainfo": "^1.0.3"
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
-    "globals": "^13.22.0",
-    "npm-check-updates": "^16.14.4"
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "npm-check-updates": "^17.1.15"
   },
   "scripts": {
     "time": "node time.js",

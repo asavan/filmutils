@@ -1,16 +1,12 @@
-"use strict";
+import { createReadStream } from 'node:fs';
+import * as readline from 'node:readline/promises';
 
-import fs from "fs";
-import spawnAsync from "@expo/spawn-async";
-import readline from "readline";
-import ncp from "copy-paste";
+import clipboard from 'clipboardy';
+import { promisify } from 'node:util';
+import child_process from 'node:child_process';
 
-let counter = 0;
-const rl = readline.createInterface({
-    input: fs.createReadStream("videos.txt"),
-    output: process.stdout,
-    terminal: false
-});
+const execFile = promisify(child_process.execFile);
+
 
 function processOneLink(link) {
     try {
@@ -30,13 +26,22 @@ function processOneLink(link) {
             newUrl = newUrlUrl.href;
         }
         console.log(newUrl);
-        return spawnAsync("youtube-dl", ["-x", "--audio-format", "mp3", newUrl], {stdio: "inherit"});
+        return execFile("yt-dlp", ["-x", "--audio-format", "mp3", newUrl], {stdio: "inherit"});
     } catch (e) {
         console.log(e);
     }
 }
 
 async function main() {
+    
+    let counter = 0;
+    
+    const rl = readline.createInterface({
+        input: createReadStream("videos.txt"),
+        output: process.stdout,
+        terminal: false
+    });
+
 
     for await (const line of rl) {
         await processOneLink(line);
@@ -45,7 +50,7 @@ async function main() {
 
     // TODO
     if (counter === 0) {
-        const line = ncp.paste();
+        const line = await clipboard.read();
         await processOneLink(line);
     }
 }
